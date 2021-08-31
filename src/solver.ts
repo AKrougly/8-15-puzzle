@@ -200,7 +200,10 @@ function solver(start_board: Board): Board {
     for (let child of children){
       let to_push = true;
       for (let board of visited)
-        if(isBoardSame(board, child)) to_push = false;
+        if(isBoardSame(board, child)) {
+          to_push = false;
+          break;
+        }
       if (to_push)
         q.push(child);  
     }
