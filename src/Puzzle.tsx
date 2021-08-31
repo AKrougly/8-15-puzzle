@@ -122,7 +122,7 @@ export default class Puzzle extends React.Component<IPuzzleProps, IPuzzleState> 
     }
   };
 
-  handleChange = (direction: Directions) => {
+  handleChange = (direction: Directions | undefined) => {
     let down = direction === Directions.Down && this.state.emptyCell.i !== 0;
     let up = direction === Directions.Up && this.state.emptyCell.i !== this.gridSize - 1;
     let right = direction === Directions.Right && this.state.emptyCell.j !== 0;
@@ -156,7 +156,7 @@ export default class Puzzle extends React.Component<IPuzzleProps, IPuzzleState> 
     }
   };
 
-  handleClick = (cellIndex: ICellIndex) => {
+  handleClick = (cellIndex: ICellIndex): void => {
     if (this.state.emptyCell.i === cellIndex.i + 1 && this.state.emptyCell.j === cellIndex.j) {
       this.handleChange(Directions.Down);
     }
@@ -171,8 +171,18 @@ export default class Puzzle extends React.Component<IPuzzleProps, IPuzzleState> 
     }
   };
 
+  handleKeyDown = (event: KeyboardEvent) => {
+    let direction: Directions | undefined = undefined;
+    if (event.code === 'ArrowDown') direction = Directions.Down; else
+    if (event.code === 'ArrowUp') direction = Directions.Up; else
+    if (event.code === 'ArrowRight') direction = Directions.Right; else
+    if (event.code === 'ArrowLeft') direction = Directions.Left;
+    this.handleChange(direction);
+  };
+
   render () {
     let correct: boolean = isSolved(this.state.grid);
+    document.addEventListener("keydown", this.handleKeyDown);
     
     return (
       <div className="card">
