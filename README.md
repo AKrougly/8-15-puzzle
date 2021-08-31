@@ -3,6 +3,8 @@ puzzle game react typescript
 
 This is an implementation of the classic 15 puzzle built with React & Typescript
 
+![image](https://user-images.githubusercontent.com/61518804/131524145-6775ef05-740f-4146-8ccc-28773b5bd1c4.png)
+
 yarn install
 
 yarn start
